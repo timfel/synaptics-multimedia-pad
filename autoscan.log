@@ -1,0 +1,14 @@
+autoscan: warning: missing AC_CHECK_FUNCS([memset]) wanted by: 
+	src/syn-multimedia.c:238
+autoscan: warning: missing AC_CHECK_FUNCS([rint]) wanted by: 
+	src/syn-multimedia.c:82
+autoscan: warning: missing AC_CHECK_FUNCS([strstr]) wanted by: 
+	src/syn-multimedia.c:130
+	src/syn-multimedia.c:132
+	src/syn-multimedia.c:134
+	src/syn-multimedia.c:136
+	src/syn-multimedia.c:138
+	src/syn-multimedia.c:140
+	src/syn-multimedia.c:142
+autoscan: warning: missing AC_C_CONST wanted by: 
+	src/syn-multimedia.c:117
