@@ -1,0 +1,17 @@
+Features:
+ * MEDION LED
+ * Sound-Scroll
+ * XOSD
+ * Strip hard-coded files, config, ...
+ * Auto-configuration
+ * Sanity checks
+ * Create config, if non-existend
+
+Nice-To-Have:
+ * GUI-Config
+ * Auto-off
+ * libnotify-bubble
+
+Bugs:
+ * Pause after Alsa-Play
+ * Detection of Corner-Tap very flaky

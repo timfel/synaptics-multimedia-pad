@@ -1,3 +1,4 @@
 2008-02-20
 	Inital functionality based on synclient from synaptics 0.14
 	Config file, Simple Mixer control, 9 launchers
+	Alsa-notification
