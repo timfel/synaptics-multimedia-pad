@@ -12,7 +12,7 @@ AC_AIX
 AC_ISC_POSIX
 AC_MINIX
 AC_STDC_HEADERS
-AC_CHECK_HEADERS([stddef.h stdlib.h string.h sys/time.h unistd.h X11/Xdefs.h])
+AC_CHECK_HEADERS([stddef.h stdlib.h string.h sys/time.h unistd.h X11/Xdefs.h alsa/asoundlib.h])
 AC_CHECK_FUNCS([memset rint strstr])
 AC_PROG_RANLIB
 

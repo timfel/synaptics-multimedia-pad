@@ -43,9 +43,8 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_symultimediad_OBJECTS = syn-multimedia.$(OBJEXT)
+am_symultimediad_OBJECTS = syn-multimedia.$(OBJEXT) alsa.$(OBJEXT)
 symultimediad_OBJECTS = $(am_symultimediad_OBJECTS)
-symultimediad_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
@@ -143,9 +142,11 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-INCLUDES = -I/usr/include/X11
-AM_LDFLAGS = -lm
-symultimediad_SOURCES = syn-multimedia.c synaptics.h
+INCLUDES = 
+AM_LDFLAGS = 
+symultimediad_SOURCES = syn-multimedia.c synaptics.h alsa.c alsa.h
+symultimediad_DEPENDENCIES = 
+symultimediad_LDADD = -lm -lasound
 all: all-am
 
 .SUFFIXES:
@@ -212,6 +213,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/alsa.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/syn-multimedia.Po@am__quote@
 
 .c.o:

@@ -30,6 +30,7 @@
 
 #include <X11/Xdefs.h>
 #include "synaptics.h"
+#include "alsa.h"
 
 #define CR 13            /* Decimal code of Carriage Return char */
 #define LF 10            /* Decimal code of Line Feed char */
@@ -62,6 +63,8 @@ int zmin = 30;
 int triggerx = 960;
 int triggery = 80;
 int mmmode = 0;
+int actsound = 1;
+char soundname[239] = {'\0'};
 char a1[127] = {'\0'};
 char a2[127] = {'\0'};
 char a3[127] = {'\0'};
@@ -117,9 +120,9 @@ read_config()
     cfile = fopen((const char*)configfile, "r");
     
     if (cfile != NULL) {
-        printf("%4s %4s %5d %5d %5d %5d %5d %5d %5d %5d %5d %5s\n",
-                "MaxX", "MaxY", 1,2,3,4,5,6,7,8,9, "Mixer");
-        for (i = 0; i < 15; i++) {
+        printf("%4s %4s %5d %5d %5d %5d %5d %5d %5d %5d %5d %5s %5s\n",
+                "MaxX", "MaxY", 1,2,3,4,5,6,7,8,9, "Mixer", "Sound");
+        for (i = 0; i < 17; i++) {
             (void)fscanf(cfile, "%s %s", buffer, buffer2);
             c = fgetc(cfile);
             while (!(c == CR || c == LF || c == EOF)) {
@@ -133,6 +136,10 @@ read_config()
                 ymax = atoi(buffer2);
             else if (strstr(buffer, "zmin") != NULL)
                 zmin = atoi(buffer2);
+            else if (strstr(buffer, "sound") != NULL)
+                actsound = atoi(buffer2);
+            else if (strstr(buffer, "sndfile") != NULL)
+                strcpy(soundname, buffer2);
             else if (strstr(buffer, "triggerx") != NULL)
                 triggerx = atoi(buffer2);
             else if (strstr(buffer, "triggery") != NULL)
@@ -144,9 +151,9 @@ read_config()
             else
                 printf("Unmapped option in line %d. Check cfg!\n", i+1); 
         }
-        printf("%3d %3d %5s %5s %5s %5s %5s %5s %5s %5s %5s %s\n",
+        printf("%3d %3d %5s %5s %5s %5s %5s %5s %5s %5s %5s %s %s\n",
                     xmax, ymax, a1, a2, a3, a4, a5, a6, a7, a8, a9,
-                    alsamixer);
+                    alsamixer, soundname);
         fflush(stdout);
         
         return 0;
@@ -230,9 +237,16 @@ get_actioncode(SynapticsSHM *cur)
 }
 
 static void
+make_sound()
+{
+    make_noise((const char*)soundname);
+}
+
+static void
 monitor(SynapticsSHM *synshm, int delay)
 {
     SynapticsSHM old;
+    SynapticsSHM* oldp;
     int action = 0;
     
     memset(&old, 0, sizeof(SynapticsSHM));
@@ -242,13 +256,18 @@ monitor(SynapticsSHM *synshm, int delay)
 	if (!is_equal(&old, &cur)) {
 	    fflush(stdout);
 	    old = cur;
-	    if ((synshm->x >= triggerx) && (synshm->y <= triggery) && (synshm->z >= zmin)) {
+	    oldp = &old;
+	    if ((synshm->x >= triggerx) && (synshm->y <= triggery) && (synshm->z >= zmin) && (synshm->z >= oldp->z)) {
 	        if (mmmode == 0) {
 	            mmmode = 1;
 	            set_touchpad(synshm, 1);
+                make_sound();
+                /* usleep(delay * 5000); */
             } else {
 	            mmmode = 0;
 	            set_touchpad(synshm, 0);
+	            make_sound();
+	            /* usleep(delay * 5000); */
             }
         }
         if (mmmode == 1) {
