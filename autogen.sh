@@ -1,5 +1,4 @@
 #!/bin/sh
-cp README.in README
 rm -f config.cache
 echo "- aclocal."
 aclocal -I m4
