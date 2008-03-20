@@ -1,6 +1,9 @@
 synaptics-multimedia-pad THANKS file
 
-synaptics-multimedia-pad has originally been written by Tim Felgentreff.
-Many people have further contributed to FOO by reporting problems, 
+synaptics-multimedia-pad has originally been copied from synclient by 
+Tim Felgentreff.
+Many people have further contributed by reporting problems, 
 suggesting various improvements, or submitting actual code. Here is
 a list of these people. Help me keep it complete and exempt of errors.
+
+"Henk" (Gerd Andreas Henkel)

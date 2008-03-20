@@ -7,7 +7,9 @@ Please send synaptics-multimedia-pad bug reports to timfelgentreff@gmail.com.
 
 Version 0.1
 
-* List your features here
+FEATURES
+ * 9 configurable shell-launchers
+ * Simple ALSA-Mixer control
 
 -------------------------------------------------------
 Copying information:
