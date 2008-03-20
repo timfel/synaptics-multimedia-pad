@@ -1,4 +1,5 @@
 #!/bin/sh
+touch README
 rm -f config.cache
 echo "- aclocal."
 aclocal -I m4
