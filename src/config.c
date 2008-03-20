@@ -5,7 +5,26 @@ read_config(Config* config)
 {
 	Config std;
 	std = *config;
+	
+	std.xmax = 980;
+	std.ymax = 750;
+	std.zmin = 30;
+	std.triggerx = 960;
+	std.triggery = 80;
+	std.actsound = 1;
+	std.soundname[0] = '\0';
+	std.a1[0] = '\0';
+	std.a2[0] = '\0';
+	std.a3[0] = '\0';
+	std.a4[0] = '\0';
+	std.a5[0] = '\0';
+	std.a6[0] = '\0';
+	std.a7[0] = '\0';
+	std.a8[0] = '\0';
+	std.a9[0] = '\0';
+	std.alsamixer[0] = '\0';
 	char* actions[9] = {std.a1, std.a2, std.a3, std.a4, std.a5, std.a6, std.a7, std.a8, std.a9};
+	
     char configfile[40] = {'\0'};
     FILE* cfile;
     char buffer[10] = {'\0'};

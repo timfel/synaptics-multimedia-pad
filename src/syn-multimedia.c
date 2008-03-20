@@ -92,12 +92,14 @@ monitor(SynapticsSHM *synshm, int delay)
 	        if (mmmode == 0) {
 	            mmmode = 1;
 	            set_touchpad(synshm, 1);
-                make_noise(std.soundname);
+	            if (std.actsound == 1)
+                	make_noise(std.soundname);
                 /* usleep(delay * 5000); */
             } else {
 	            mmmode = 0;
 	            set_touchpad(synshm, 0);
-	            make_noise(std.soundname);
+	            if (std.actsound == 1)
+                	make_noise(std.soundname);
 	            /* usleep(delay * 5000); */
             }
         }
@@ -116,24 +118,7 @@ main()
 	int delay = 100;
     SynapticsSHM *synshm;
 	
-	std.xmax = 980;
-	std.ymax = 750;
-	std.zmin = 30;
-	std.triggerx = 960;
-	std.triggery = 80;
-	std.actsound = 1;
-	std.soundname[0] = '\0';
-	std.a1[0] = '\0';
-	std.a2[0] = '\0';
-	std.a3[0] = '\0';
-	std.a4[0] = '\0';
-	std.a5[0] = '\0';
-	std.a6[0] = '\0';
-	std.a7[0] = '\0';
-	std.a8[0] = '\0';
-	std.a9[0] = '\0';
-	std.alsamixer[0] = '\0';
-    
+ 
     synshm = syn_init();
         
     /* set_touchpad(synshm, 1); */
