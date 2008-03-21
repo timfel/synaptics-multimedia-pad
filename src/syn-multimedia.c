@@ -58,11 +58,13 @@ run_action(int actioncode)
                 count += 3;
             }
             #ifdef XOSD
-            	onscr_action(osd, cmd);
+            	if (std.osd == 1)
+            		onscr_action(osd, cmd);
             #endif 
         } else {
         	#ifdef XOSD
-        		onscr_volume(osd, actioncode-100, (const char*)std.alsamixer);
+        		if (std.osd == 1)
+        			onscr_volume(osd, actioncode-100, (const char*)std.alsamixer);
         	#endif
         	sprintf(cmd,"amixer sset \"%s\" \"%d%\"",std.alsamixer,actioncode-100);
         }
@@ -95,7 +97,8 @@ monitor(SynapticsSHM *synshm, int delay)
 	            start = 1;
 	            syn_set_touchpad(synshm, 1);            
                 #ifdef XOSD
-                	onscr_mmm_on(osd);
+                	if (std.osd == 1)
+                		onscr_mmm_on(osd);
                 #endif
                 if (std.actsound == 1) {
                 	#ifdef ALSA
@@ -108,7 +111,8 @@ monitor(SynapticsSHM *synshm, int delay)
 	            mmmode = 0;
 	            syn_set_touchpad(synshm, 0);
                 #ifdef XOSD
-                	onscr_mmm_off(osd);
+                	if (std.osd == 1)
+                		onscr_mmm_off(osd);
                 #endif
                 if (std.actsound == 1) {
 	            	#ifdef ALSA
@@ -137,19 +141,20 @@ main()
  
     synshm = syn_init();
     
-   	#ifdef XOSD
-   		osd = onscr_init();
-   	#endif
-        
-    /* set_touchpad(synshm, 1); */
     std = conf_read(&std);
+    
+    #ifdef XOSD
+   		if (std.osd == 1)
+   			osd = onscr_init();
+   	#endif
     
     /* Perform requested actions */
 	monitor(synshm, delay);
 	
     /* set_touchpad(synshm, 0); */
     #ifdef XOSD
-    	xosd_destroy (osd);
+    	if (std.osd == 1)
+    		xosd_destroy (osd);
     #endif
     exit(0);
 }

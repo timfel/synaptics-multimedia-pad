@@ -18,6 +18,7 @@ conf_read(Config* config)
 	std.zmin = 30;
 	std.triggerx = 960;
 	std.triggery = 80;
+	std.osd = 1;
 	std.actsound = 1;
 	std.soundon[0] = '\0';
 	std.soundoff[0] = '\0';
@@ -46,10 +47,10 @@ conf_read(Config* config)
     
     if (cfile != NULL) {
 		#ifdef DEBUG
-        printf("%4s %4s %5d %5d %5d %5d %5d %5d %5d %5d %5d %5s %2s %10s %10s\n",
-                "MaxX", "MaxY", 1,2,3,4,5,6,7,8,9, "Mixer", "Snd", "SoundOn", "SoundOff");
+        printf("%4s %4s %5s %2s %5s\n",
+                "MaxX", "MaxY", "Mixer", "Snd", "Xosd");
     	#endif
-        for (i = 0; i < 18; i++) {
+        for (i = 0; i < 19; i++) {
             (void)fscanf(cfile, "%s %s", buffer, buffer2);
             c = fgetc(cfile);
             while (!(c == CR || c == LF || c == EOF)) {
@@ -77,6 +78,8 @@ conf_read(Config* config)
                 strcpy(actions[atoi(&buffer[6])-1], buffer2);
             else if (strstr(buffer, "mixer") != NULL)
                 strcpy(std.alsamixer, buffer2);
+            else if (strstr(buffer, "osd") != NULL)
+                std.osd = atoi(buffer2);
             else
                 printf("Unmapped option in line %d. Check cfg!\n", i+1); 
         }
@@ -84,13 +87,15 @@ conf_read(Config* config)
         #ifndef ALSA
 			std.actsound = 0;
 		#endif
+		
+		#ifndef XOSD
+			std.osd = 0;
+		#endif
         
         #ifdef DEBUG
-        printf("%3d %3d %5s %5s %5s %5s %5s %5s %5s %5s %5s %s %2d %s %s\n",
-                    std.xmax, std.ymax, std.a1, std.a2, 
-                    std.a3, std.a4, std.a5, std.a6, 
-                    std.a7, std.a8, std.a9,
-                    std.alsamixer, std.actsound, std.soundon, std.soundoff);
+        printf("%4d %4d %5s %3d %5d\n",
+                    std.xmax, std.ymax, std.alsamixer,
+                    std.actsound, std.osd);
         #endif
         fflush(stdout);
         

@@ -37,6 +37,9 @@ int alsa_make_noise(const char* filename)
     #endif
     (void)fseek (rFile , 0 , SEEK_END);
     lSize = ftell(rFile);
+    #ifdef DEBUG
+    	printf("Filesize: %d\n", lSize);fflush(stdout);
+    #endif
     rewind(rFile);
     Buffer = (char*)malloc(sizeof(char)*lSize);
     if (Buffer != NULL) {

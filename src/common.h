@@ -26,6 +26,7 @@ typedef struct {
 	int zmin;
 	int triggerx;
 	int triggery;
+	int osd;
 	int actsound;
 	char soundon[239];
 	char soundoff[239];
