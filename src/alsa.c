@@ -14,7 +14,7 @@ int make_noise(const char* filename)
     snd_pcm_sframes_t frames;
     FILE* rFile;
     long lSize;
-    char Buffer[1024*1024] = {'\0'};
+    char* Buffer;
  
     if ((err = snd_pcm_open(&handle, device, SND_PCM_STREAM_PLAYBACK, 0)) < 0) 
     {
@@ -38,10 +38,20 @@ int make_noise(const char* filename)
     (void)fseek (rFile , 0 , SEEK_END);
     lSize = ftell(rFile);
     rewind(rFile);
-    setbuf(rFile, Buffer);
-	(void)fread(Buffer,1,(size_t)lSize,rFile);
+    Buffer = (char*)malloc(sizeof(char)*lSize);
+    if (Buffer != NULL) {
+    	setbuf(rFile, Buffer);
+		(void)fread(Buffer,1,(size_t)lSize,rFile);
 
-    (void)snd_pcm_writei(handle, Buffer, (size_t)lSize);
+    	(void)snd_pcm_writei(handle, Buffer, (size_t)lSize);
+    } else {
+    	#ifdef DEBUG
+    		printf("Requested allocation size: %d \n", lSize);
+    	#endif
+    	printf("Not enough memory, file is too long!");
+    	fflush(stdout);	
+    }
+    	
     (void)snd_pcm_close(handle);
     (void)fclose(rFile);
 	return 0;

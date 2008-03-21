@@ -79,6 +79,7 @@ monitor(SynapticsSHM *synshm, int delay)
 {
     SynapticsSHM old;
     int action = 0;
+    int start = 1;
     
     memset(&old, 0, sizeof(SynapticsSHM));
     
@@ -91,6 +92,7 @@ monitor(SynapticsSHM *synshm, int delay)
 	    if ((synshm->x >= std.triggerx) && (synshm->y <= std.triggery) && (synshm->z >= synshm->finger_high)) {
 	        if (mmmode == 0) {
 	            mmmode = 1;
+	            start = 1;
 	            set_touchpad(synshm, 1);
 	            if (std.actsound == 1)
                 	make_noise(std.soundon);
@@ -103,10 +105,11 @@ monitor(SynapticsSHM *synshm, int delay)
 	            /* usleep(delay * 5000); */
             }
         }
-        if (mmmode == 1) {
+        if ((mmmode == 1) && (start == 0)) {
             action = get_matrixcode(&cur, std.xmax, std.ymax, std.zmin);
             run_action(action);
-        }
+        } else
+        	start = 0;
 	}
 	usleep(delay * 1000);
     }
