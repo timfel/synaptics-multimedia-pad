@@ -1,5 +1,5 @@
-#ifndef SYNTOOL_H
-#define SYNTOOL_H
+#ifndef SYN_H
+#define SYN_H
 
 #include "common.h"
 
@@ -24,9 +24,9 @@ static struct Parameter params[] = {
     DEFINE_PAR("TouchpadOff",          touchpad_off,            PT_INT,    0, 2)
 };
 
-void set_touchpad(SynapticsSHM *synshm, double val);
-int is_equal(SynapticsSHM *s1, SynapticsSHM *s2);
-int get_matrixcode(SynapticsSHM *cur, Config* std);
+void syn_set_touchpad(SynapticsSHM *synshm, double val);
+int syn_is_equal(SynapticsSHM *s1, SynapticsSHM *s2);
+int syn_get_matrixcode(SynapticsSHM *cur, Config* std);
 SynapticsSHM* syn_init();
 
 

@@ -1,7 +1,7 @@
-#include "syntool.h"
+#include "syn.h"
 
 void
-set_touchpad(SynapticsSHM *synshm, double val)
+syn_set_touchpad(SynapticsSHM *synshm, double val)
 {
     struct Parameter* par = &params[0];
     
@@ -9,7 +9,7 @@ set_touchpad(SynapticsSHM *synshm, double val)
 }
 
 int
-is_equal(SynapticsSHM *s1, SynapticsSHM *s2)
+syn_is_equal(SynapticsSHM *s1, SynapticsSHM *s2)
 {
     int i;
 
@@ -50,7 +50,7 @@ syn_init()
 }
 
 int
-get_matrixcode(SynapticsSHM *cur, Config* std)
+syn_get_matrixcode(SynapticsSHM *cur, Config* std)
 {
 	int actioncode = 0;
     int buttonx, buttony;
@@ -60,7 +60,7 @@ get_matrixcode(SynapticsSHM *cur, Config* std)
     if ((cur->left == 1) || (cur->right == 1)) 
     {
         actioncode = 4;			/* If user clicks, drop out off mmmode */
-        set_touchpad(cur, 0);
+        syn_set_touchpad(cur, 0);
     }
     
     if (cur->z > std->zmin) {

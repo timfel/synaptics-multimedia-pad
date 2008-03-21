@@ -13,13 +13,13 @@
 	#include <fcntl.h>
 	#include <sys/ioctl.h>
 
-	// the volume osd color
-	#define OSD_VCOLOR "red"
-	// the brightness osd color
-	#define OSD_BCOLOR "blue"
+	// the osd color
+	#define OSD_COLOR "green1"
+	// the shadow osd color
+	#define OSD_BCOLOR "black"
 	// the osd font... change the 7th position for size
 	// or use xfontsel to explore the options
-	#define OSD_FONT "-*-*-*-*-*-*-20-*-*-*-*-*-*-*"
+	#define OSD_FONT "-b&h-*-bold-r-*-*-34-*-*-*-*-*-*-*"
 	// the length of time the osd is shown
 	#define OSD_TIME 3
 

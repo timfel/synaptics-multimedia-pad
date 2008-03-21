@@ -6,8 +6,8 @@
 #ifdef ALSA
 	#include <alsa/asoundlib.h>
 
-	int make_noise(const char* filename);
-	void set_volume(int percentage);
+	int alsa_make_noise(const char* filename);
+	void alsa_set_volume(int percentage);
 #endif
 
 #endif

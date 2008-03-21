@@ -1,11 +1,7 @@
- /*
-  *  This extra small demo sends a random samples to your speakers.
-  */
- 
 #include "alsa.h"
  
 #ifdef ALSA
-int make_noise(const char* filename)
+int alsa_make_noise(const char* filename)
 {
 	static char *device = "default";                        /* playback device */
 	snd_output_t *output = NULL;
@@ -58,7 +54,7 @@ int make_noise(const char* filename)
 	return 0;
 }
 
-void set_volume(int percentage) 
+void alsa_set_volume(int percentage) 
 {
 	
 }

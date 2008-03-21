@@ -3,6 +3,6 @@
 
 #include "common.h"
 
-Config read_config(Config* std);
+Config conf_read(Config* std);
 
 #endif

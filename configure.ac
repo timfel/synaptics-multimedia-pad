@@ -1,5 +1,5 @@
 AC_INIT([synaptics-multimedia-pad],
-        [0.0.1],
+        [0.0.2],
         [Tim Felgentreff timfelgentreff@gmail.com],
         [synaptics-multimedia-pad])
 AC_CONFIG_AUX_DIR(config)
@@ -15,6 +15,8 @@ AC_STDC_HEADERS
 AC_CHECK_HEADERS([stddef.h stdlib.h string.h sys/time.h unistd.h X11/Xdefs.h])
 AC_CHECK_FUNCS([memset rint strstr])
 AC_PROG_RANLIB
+
+AC_SUBST(OPTLIBS)	# Optional Libraries go here
 
 ############### DEBUG ##############
 AC_ARG_ENABLE(debug-mode,
@@ -34,6 +36,10 @@ if test $alsa = "yes" ; then
 	AC_CHECK_HEADER(alsa/asoundlib.h,
 				[AC_DEFINE(ALSA, 1, [ ])], alsa="no")
 fi
+
+if test $alsa = "yes"; then
+	OPTLIBS="$OPTLIBS -lasound"
+fi
 			 
 ############### XOSD ##############
 AC_ARG_ENABLE(xosd,
@@ -43,6 +49,10 @@ AC_ARG_ENABLE(xosd,
 if test $xosd = "yes" ; then
 	AC_CHECK_HEADER(xosd.h,
 				[AC_DEFINE(XOSD, 1, [ ])], xosd="no")
+fi
+
+if test $xosd = "yes"; then
+	OPTLIBS="$OPTLIBS -lxosd -lpthread -lXext -lX11 -lXinerama"
 fi
 
 

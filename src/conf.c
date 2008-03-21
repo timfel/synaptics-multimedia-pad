@@ -2,7 +2,7 @@
 
 
 Config 
-read_config(Config* config)
+conf_read(Config* config)
 {
 	Config std;
 	std = *config;
@@ -41,10 +41,10 @@ read_config(Config* config)
     cfile = fopen((const char*)configfile, "r");
     
     if (cfile != NULL) {
-	#ifdef DEBUG    	
+		#ifdef DEBUG
         printf("%4s %4s %5d %5d %5d %5d %5d %5d %5d %5d %5d %5s %2s %10s %10s\n",
                 "MaxX", "MaxY", 1,2,3,4,5,6,7,8,9, "Mixer", "Snd", "SoundOn", "SoundOff");
-    #endif
+    	#endif
         for (i = 0; i < 18; i++) {
             (void)fscanf(cfile, "%s %s", buffer, buffer2);
             c = fgetc(cfile);

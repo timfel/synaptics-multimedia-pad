@@ -18,7 +18,7 @@
  */
 
 #include "common.h"
-#include "syntool.h"
+#include "syn.h"
 #include "conf.h"
 #include "alsa.h"
 #include "onscr.h"
@@ -85,7 +85,7 @@ monitor(SynapticsSHM *synshm, int delay)
     
     while (1) {
     SynapticsSHM cur = *synshm;
-    if (!is_equal(&old, &cur)) {
+    if (!syn_is_equal(&old, &cur)) {
 	    fflush(stdout);
 	    old = cur;
 	    fflush(stdout);
@@ -93,32 +93,34 @@ monitor(SynapticsSHM *synshm, int delay)
 	        if (mmmode == 0) {
 	            mmmode = 1;
 	            start = 1;
-	            set_touchpad(synshm, 1);
-	            if (std.actsound == 1) {
+	            syn_set_touchpad(synshm, 1);            
+                #ifdef XOSD
+                	onscr_mmm_on(osd);
+                #endif
+                if (std.actsound == 1) {
                 	#ifdef ALSA
-                		make_noise(std.soundoff);
+                		alsa_make_noise(std.soundoff);
                 	#endif
-                	#ifdef XOSD
-                		onscr_mmm_on(osd);
-                	#endif
+                } else {
+                	usleep(delay * 5000);
                 }
-                /* usleep(delay * 5000); */
             } else {
 	            mmmode = 0;
-	            set_touchpad(synshm, 0);
-	            if (std.actsound == 1) {
+	            syn_set_touchpad(synshm, 0);
+                #ifdef XOSD
+                	onscr_mmm_off(osd);
+                #endif
+                if (std.actsound == 1) {
 	            	#ifdef ALSA
-                		make_noise(std.soundoff);
+                		alsa_make_noise(std.soundoff);
                 	#endif
-                	#ifdef XOSD
-                		onscr_mmm_off(osd);
-                	#endif
+                } else {
+                	usleep(delay * 5000);
                 }
-	            /* usleep(delay * 5000); */
             }
         }
         if ((mmmode == 1) && (start == 0)) {
-            action = get_matrixcode(&cur, &std);
+            action = syn_get_matrixcode(&cur, &std);
             run_action(action);
         } else
         	start = 0;
@@ -140,7 +142,7 @@ main()
    	#endif
         
     /* set_touchpad(synshm, 1); */
-    std = read_config(&std);
+    std = conf_read(&std);
     
     /* Perform requested actions */
 	monitor(synshm, delay);
