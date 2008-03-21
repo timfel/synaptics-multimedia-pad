@@ -75,6 +75,9 @@
 /* Version number of package */
 #undef VERSION
 
+/* */
+#undef XOSD
+
 /* Define to 1 if on AIX 3.
    System headers sometimes define this.
    We just want to avoid a redefinition error message.  */

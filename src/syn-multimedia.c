@@ -21,10 +21,15 @@
 #include "syntool.h"
 #include "conf.h"
 #include "alsa.h"
+#include "onscr.h"
 
 Config std;
 int mmmode = 0;
 char* actions[9] = {std.a1, std.a2, std.a3, std.a4, std.a5, std.a6, std.a7, std.a8, std.a9};
+#ifdef XOSD
+	// the onscreen display
+	xosd* osd = '\0';
+#endif
 
 static int
 run_action(int actioncode)
@@ -52,13 +57,14 @@ run_action(int actioncode)
                 }
                 count += 3;
             }
+            #ifdef XOSD
+            	onscr_action(osd, cmd);
+            #endif 
         } else {
-        	sprintf(percentage,"%d",actioncode-100);
-            strcpy(cmd, "amixer sset \"");
-            strcat(cmd, std.alsamixer);
-            strcat(cmd, "\" \"");
-            strcat(cmd, percentage);
-            strcat(cmd, "%\"");
+        	#ifdef XOSD
+        		onscr_volume(osd, actioncode-100, (const char*)std.alsamixer);
+        	#endif
+        	sprintf(cmd,"amixer sset \"%s\" \"%d%\"",std.alsamixer,actioncode-100);
         }
     
         strcat(cmd, " &");
@@ -88,14 +94,26 @@ monitor(SynapticsSHM *synshm, int delay)
 	            mmmode = 1;
 	            start = 1;
 	            set_touchpad(synshm, 1);
-	            if (std.actsound == 1)
-                	make_noise(std.soundon);
+	            if (std.actsound == 1) {
+                	#ifdef ALSA
+                		make_noise(std.soundoff);
+                	#endif
+                	#ifdef XOSD
+                		onscr_mmm_on(osd);
+                	#endif
+                }
                 /* usleep(delay * 5000); */
             } else {
 	            mmmode = 0;
 	            set_touchpad(synshm, 0);
-	            if (std.actsound == 1)
-                	make_noise(std.soundoff);
+	            if (std.actsound == 1) {
+	            	#ifdef ALSA
+                		make_noise(std.soundoff);
+                	#endif
+                	#ifdef XOSD
+                		onscr_mmm_off(osd);
+                	#endif
+                }
 	            /* usleep(delay * 5000); */
             }
         }
@@ -114,9 +132,12 @@ main()
 {
 	int delay = 100;
     SynapticsSHM *synshm;
-	
  
     synshm = syn_init();
+    
+   	#ifdef XOSD
+   		osd = onscr_init();
+   	#endif
         
     /* set_touchpad(synshm, 1); */
     std = read_config(&std);
@@ -125,5 +146,8 @@ main()
 	monitor(synshm, delay);
 	
     /* set_touchpad(synshm, 0); */
+    #ifdef XOSD
+    	xosd_destroy (osd);
+    #endif
     exit(0);
 }

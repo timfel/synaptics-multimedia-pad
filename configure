@@ -573,7 +573,7 @@ SHELL=${CONFIG_SHELL-/bin/sh}
 
 # Identity of this package.
 PACKAGE_NAME='synaptics-multimedia-pad'
-PACKAGE_TARNAME='synaptics-multimedia-pad}'
+PACKAGE_TARNAME='synaptics-multimedia-pad'
 PACKAGE_VERSION='0.0.1'
 PACKAGE_STRING='synaptics-multimedia-pad 0.0.1'
 PACKAGE_BUGREPORT='Tim Felgentreff timfelgentreff@gmail.com'
@@ -1255,7 +1255,7 @@ Fine tuning of the installation directories:
   --infodir=DIR          info documentation [DATAROOTDIR/info]
   --localedir=DIR        locale-dependent data [DATAROOTDIR/locale]
   --mandir=DIR           man documentation [DATAROOTDIR/man]
-  --docdir=DIR           documentation root [DATAROOTDIR/doc/synaptics-multimedia-pad}]
+  --docdir=DIR           documentation root [DATAROOTDIR/doc/synaptics-multimedia-pad]
   --htmldir=DIR          html documentation [DOCDIR]
   --dvidir=DIR           dvi documentation [DOCDIR]
   --pdfdir=DIR           pdf documentation [DOCDIR]
@@ -1284,6 +1284,7 @@ Optional Features:
   --enable-dependency-tracking   do not reject slow dependency extractors
   --enable-debug-mode	enable debug mode
   --disable-alsa	do not use ALSA for on/off notfication
+  --disable-xosd	do not use XOSD for visualisation
 
 Some influential environment variables:
   CC          C compiler command
@@ -2064,7 +2065,7 @@ fi
 
 
 # Define the identity of the package.
- PACKAGE='synaptics-multimedia-pad}'
+ PACKAGE='synaptics-multimedia-pad'
  VERSION='0.0.1'
 
 
@@ -4972,6 +4973,158 @@ fi
 
 fi
 
+############### XOSD ##############
+# Check whether --enable-xosd was given.
+if test "${enable_xosd+set}" = set; then
+  enableval=$enable_xosd; xosd="no"
+else
+  xosd="yes"
+fi
+
+
+if test $xosd = "yes" ; then
+	if test "${ac_cv_header_xosd_h+set}" = set; then
+  { echo "$as_me:$LINENO: checking for xosd.h" >&5
+echo $ECHO_N "checking for xosd.h... $ECHO_C" >&6; }
+if test "${ac_cv_header_xosd_h+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_header_xosd_h" >&5
+echo "${ECHO_T}$ac_cv_header_xosd_h" >&6; }
+else
+  # Is the header compilable?
+{ echo "$as_me:$LINENO: checking xosd.h usability" >&5
+echo $ECHO_N "checking xosd.h usability... $ECHO_C" >&6; }
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+$ac_includes_default
+#include <xosd.h>
+_ACEOF
+rm -f conftest.$ac_objext
+if { (ac_try="$ac_compile"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_compile") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest.$ac_objext; then
+  ac_header_compiler=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_header_compiler=no
+fi
+
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+{ echo "$as_me:$LINENO: result: $ac_header_compiler" >&5
+echo "${ECHO_T}$ac_header_compiler" >&6; }
+
+# Is the header present?
+{ echo "$as_me:$LINENO: checking xosd.h presence" >&5
+echo $ECHO_N "checking xosd.h presence... $ECHO_C" >&6; }
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+#include <xosd.h>
+_ACEOF
+if { (ac_try="$ac_cpp conftest.$ac_ext"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_cpp conftest.$ac_ext") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } >/dev/null && {
+	 test -z "$ac_c_preproc_warn_flag$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       }; then
+  ac_header_preproc=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+  ac_header_preproc=no
+fi
+
+rm -f conftest.err conftest.$ac_ext
+{ echo "$as_me:$LINENO: result: $ac_header_preproc" >&5
+echo "${ECHO_T}$ac_header_preproc" >&6; }
+
+# So?  What about this header?
+case $ac_header_compiler:$ac_header_preproc:$ac_c_preproc_warn_flag in
+  yes:no: )
+    { echo "$as_me:$LINENO: WARNING: xosd.h: accepted by the compiler, rejected by the preprocessor!" >&5
+echo "$as_me: WARNING: xosd.h: accepted by the compiler, rejected by the preprocessor!" >&2;}
+    { echo "$as_me:$LINENO: WARNING: xosd.h: proceeding with the compiler's result" >&5
+echo "$as_me: WARNING: xosd.h: proceeding with the compiler's result" >&2;}
+    ac_header_preproc=yes
+    ;;
+  no:yes:* )
+    { echo "$as_me:$LINENO: WARNING: xosd.h: present but cannot be compiled" >&5
+echo "$as_me: WARNING: xosd.h: present but cannot be compiled" >&2;}
+    { echo "$as_me:$LINENO: WARNING: xosd.h:     check for missing prerequisite headers?" >&5
+echo "$as_me: WARNING: xosd.h:     check for missing prerequisite headers?" >&2;}
+    { echo "$as_me:$LINENO: WARNING: xosd.h: see the Autoconf documentation" >&5
+echo "$as_me: WARNING: xosd.h: see the Autoconf documentation" >&2;}
+    { echo "$as_me:$LINENO: WARNING: xosd.h:     section \"Present But Cannot Be Compiled\"" >&5
+echo "$as_me: WARNING: xosd.h:     section \"Present But Cannot Be Compiled\"" >&2;}
+    { echo "$as_me:$LINENO: WARNING: xosd.h: proceeding with the preprocessor's result" >&5
+echo "$as_me: WARNING: xosd.h: proceeding with the preprocessor's result" >&2;}
+    { echo "$as_me:$LINENO: WARNING: xosd.h: in the future, the compiler will take precedence" >&5
+echo "$as_me: WARNING: xosd.h: in the future, the compiler will take precedence" >&2;}
+    ( cat <<\_ASBOX
+## ------------------------------------------------------- ##
+## Report this to Tim Felgentreff timfelgentreff@gmail.com ##
+## ------------------------------------------------------- ##
+_ASBOX
+     ) | sed "s/^/$as_me: WARNING:     /" >&2
+    ;;
+esac
+{ echo "$as_me:$LINENO: checking for xosd.h" >&5
+echo $ECHO_N "checking for xosd.h... $ECHO_C" >&6; }
+if test "${ac_cv_header_xosd_h+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_cv_header_xosd_h=$ac_header_preproc
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_header_xosd_h" >&5
+echo "${ECHO_T}$ac_cv_header_xosd_h" >&6; }
+
+fi
+if test $ac_cv_header_xosd_h = yes; then
+
+cat >>confdefs.h <<\_ACEOF
+#define XOSD 1
+_ACEOF
+
+else
+  xosd="no"
+fi
+
+
+fi
 
 
 ac_config_files="$ac_config_files Makefile doc/Makefile m4/Makefile src/Makefile"
@@ -6319,6 +6472,7 @@ echo "Configuration Options Summary:"
 echo
 echo "DEBUG ....................... $debug"
 echo "ALSA ........................ $alsa"
+echo "XOSD ........................ $xosd"
 echo
 echo
 echo "Now type make, make install"

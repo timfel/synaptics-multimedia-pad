@@ -4,6 +4,7 @@
  
 #include "alsa.h"
  
+#ifdef ALSA
 int make_noise(const char* filename)
 {
 	static char *device = "default";                        /* playback device */
@@ -61,3 +62,4 @@ void set_volume(int percentage)
 {
 	
 }
+#endif

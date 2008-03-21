@@ -1,7 +1,7 @@
 AC_INIT([synaptics-multimedia-pad],
         [0.0.1],
         [Tim Felgentreff timfelgentreff@gmail.com],
-        [synaptics-multimedia-pad}])
+        [synaptics-multimedia-pad])
 AC_CONFIG_AUX_DIR(config)
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE([dist-bzip2])
@@ -35,6 +35,15 @@ if test $alsa = "yes" ; then
 				[AC_DEFINE(ALSA, 1, [ ])], alsa="no")
 fi
 			 
+############### XOSD ##############
+AC_ARG_ENABLE(xosd,
+			 [[  --disable-xosd	do not use XOSD for visualisation]],
+			 xosd="no", xosd="yes")
+
+if test $xosd = "yes" ; then
+	AC_CHECK_HEADER(xosd.h,
+				[AC_DEFINE(XOSD, 1, [ ])], xosd="no")
+fi
 
 
 AC_CONFIG_FILES([
@@ -60,6 +69,7 @@ echo "Configuration Options Summary:"
 echo
 echo "DEBUG ....................... $debug"
 echo "ALSA ........................ $alsa"
+echo "XOSD ........................ $xosd"
 echo
 echo
 echo "Now type make, make install"

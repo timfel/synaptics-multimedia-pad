@@ -63,7 +63,7 @@ get_matrixcode(SynapticsSHM *cur, Config* std)
         set_touchpad(cur, 0);
     }
     
-    if (cur->z > std->zmin) {            
+    if (cur->z > std->zmin) {
         if ((cur->x > 0) && (cur->x < buttonx/3))
             actioncode = 10;
         if ((cur->x > buttonx/3) && (cur->x < 2*buttonx/3))
@@ -80,10 +80,8 @@ get_matrixcode(SynapticsSHM *cur, Config* std)
     
     if ((actioncode < 4) && (cur->y > std->triggery))
     {
-    	buttony = std->ymax - cur->y + std->triggery;
-    	printf("%d\n", buttony);fflush(stdout);
-    	actioncode = buttony * 100 / std->ymax + 100;
-    	printf("%d\n", actioncode);fflush(stdout);
+    	buttony = std->ymax - cur->y + std->triggery; /* Map the value to scale properly */
+    	actioncode = buttony * 100 / std->ymax + 100; /* W/G = p/100 ;) */
     }
     return actioncode;
 }

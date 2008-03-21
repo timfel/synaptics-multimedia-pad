@@ -44,7 +44,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_symultimediad_OBJECTS = syn-multimedia.$(OBJEXT) alsa.$(OBJEXT) \
-	syntool.$(OBJEXT) conf.$(OBJEXT)
+	syntool.$(OBJEXT) conf.$(OBJEXT) onscr.$(OBJEXT)
 symultimediad_OBJECTS = $(am_symultimediad_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
@@ -149,10 +149,11 @@ symultimediad_SOURCES = syn-multimedia.c synaptics.h \
 			alsa.c alsa.h \
 			syntool.c syntool.h \
 			conf.c conf.h \
+			onscr.c onscr.h \
 			common.h
 
 symultimediad_DEPENDENCIES = 
-symultimediad_LDADD = -lm -lasound
+symultimediad_LDADD = -lm -lasound -lxosd -lpthread -lXext -lX11 -lXinerama
 all: all-am
 
 .SUFFIXES:
@@ -221,6 +222,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/alsa.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conf.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/onscr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/syn-multimedia.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/syntool.Po@am__quote@
 
