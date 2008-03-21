@@ -26,7 +26,7 @@ static struct Parameter params[] = {
 
 void set_touchpad(SynapticsSHM *synshm, double val);
 int is_equal(SynapticsSHM *s1, SynapticsSHM *s2);
-int get_matrixcode(SynapticsSHM *cur, int xmax, int ymax, int zmin);
+int get_matrixcode(SynapticsSHM *cur, Config* std);
 SynapticsSHM* syn_init();
 
 

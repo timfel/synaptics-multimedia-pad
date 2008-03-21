@@ -50,28 +50,40 @@ syn_init()
 }
 
 int
-get_matrixcode(SynapticsSHM *cur, int xmax, int ymax, int zmin)
+get_matrixcode(SynapticsSHM *cur, Config* std)
 {
-    int actioncode = 0;
-    int buttonx;
-    buttonx = xmax - (xmax / 8);
+	int actioncode = 0;
+    int buttonx, buttony;
+    buttonx = std->xmax - (std->xmax / 8);  /* Take the sidescroll off the grid */
+    buttony = cur->y;
     
-    if ((cur->left == 1) || (cur->right == 1))
-        actioncode = 4;
+    if ((cur->left == 1) || (cur->right == 1)) 
+    {
+        actioncode = 4;			/* If user clicks, drop out off mmmode */
+        set_touchpad(cur, 0);
+    }
     
-    if (cur->z > zmin) {            
+    if (cur->z > std->zmin) {            
         if ((cur->x > 0) && (cur->x < buttonx/3))
             actioncode = 10;
         if ((cur->x > buttonx/3) && (cur->x < 2*buttonx/3))
             actioncode = 20;
         if ((cur->x > 2*buttonx/3) && (cur->x < buttonx))
             actioncode = 30;
-        if ((cur->y > 0) && (cur->y < ymax/3))
+        if ((cur->y > 0) && (cur->y < std->ymax/3))
             actioncode += 1;
-        if ((cur->y > ymax/3) && (cur->y < 2*ymax/3))
+        if ((cur->y > std->ymax/3) && (cur->y < 2*std->ymax/3))
             actioncode += 2;
-        if ((cur->y > 2*ymax/3) && (cur->y < ymax))
+        if ((cur->y > 2*std->ymax/3) && (cur->y < std->ymax))
             actioncode += 3;
+    }
+    
+    if ((actioncode < 4) && (cur->y > std->triggery))
+    {
+    	buttony = std->ymax - cur->y + std->triggery;
+    	printf("%d\n", buttony);fflush(stdout);
+    	actioncode = buttony * 100 / std->ymax + 100;
+    	printf("%d\n", actioncode);fflush(stdout);
     }
     return actioncode;
 }

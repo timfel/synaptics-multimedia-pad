@@ -32,9 +32,10 @@ run_action(int actioncode)
     int i;
     int count = 0;
     char cmd[127] = {'\0'};
+    char percentage[4] = {'\0'};
     
     if (actioncode != 0) {
-        if (actioncode > 4) {
+        if ((actioncode > 4) && (actioncode < 100)) {
             for(i = 10; i < 40; i=i+10) {
                 if ((actioncode / i) == 1) {
                     switch ((actioncode % i)) {
@@ -52,19 +53,12 @@ run_action(int actioncode)
                 count += 3;
             }
         } else {
+        	sprintf(percentage,"%d",actioncode-100);
             strcpy(cmd, "amixer sset \"");
             strcat(cmd, std.alsamixer);
-            switch (actioncode) {
-            case 1:
-                strcat(cmd, "\" \"100%\"");
-                break;
-            case 2:
-                strcat(cmd, "\" \"50%\"");
-                break;
-            case 3:
-                strcat(cmd, "\" \"10%\"");
-                break;
-            }
+            strcat(cmd, "\" \"");
+            strcat(cmd, percentage);
+            strcat(cmd, "%\"");
         }
     
         strcat(cmd, " &");
@@ -106,7 +100,7 @@ monitor(SynapticsSHM *synshm, int delay)
             }
         }
         if ((mmmode == 1) && (start == 0)) {
-            action = get_matrixcode(&cur, std.xmax, std.ymax, std.zmin);
+            action = get_matrixcode(&cur, &std);
             run_action(action);
         } else
         	start = 0;
