@@ -5,6 +5,9 @@ xosd* onscr_init()
 {
 	xosd* disp_obj;
 	setlocale(LC_ALL, "");
+	//bindtextdomain (PACKAGE, LOCALEDIR);
+    textdomain (PACKAGE);
+
 	
     disp_obj = xosd_create(2);
   	if (disp_obj == NULL)
@@ -28,21 +31,20 @@ xosd* onscr_init()
 void onscr_mmm_on(xosd* disp_obj)
 {
 	xosd_scroll(disp_obj, 2);
-	xosd_display (disp_obj, 0, XOSD_string, "Multimedia enabled");
+	xosd_display (disp_obj, 0, XOSD_string, _("Multimedia enabled"));
 }
 
 void onscr_mmm_off(xosd* disp_obj)
 {
 	xosd_scroll(disp_obj, 2);
-	xosd_display (disp_obj, 0, XOSD_string, "Multimedia disabled");
+	xosd_display (disp_obj, 0, XOSD_string, _("Multimedia disabled"));
 }
 
 void onscr_volume(xosd* disp_obj, int value, const char* mixer)
 {
 	char* title;
 	title = (char*)malloc(sizeof(char)*(8+strlen(mixer)));
-	strcpy(title, "Volume ");
-	strcat(title, mixer);
+	sprintf(title, _("Volume %s"), mixer);
 	
 	xosd_display (disp_obj, 0, XOSD_string, title);
 	xosd_display (disp_obj, 1, XOSD_percentage, value);
@@ -50,7 +52,7 @@ void onscr_volume(xosd* disp_obj, int value, const char* mixer)
 
 void onscr_action(xosd* disp_obj, const char* value)
 {
-	xosd_display(disp_obj, 0, XOSD_string, "Command");
+	xosd_display(disp_obj, 0, XOSD_string, _("Command"));
 	xosd_display (disp_obj, 1, XOSD_string, value);
 }
 #endif

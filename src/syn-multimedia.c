@@ -99,7 +99,7 @@ monitor(SynapticsSHM *synshm, int delay)
                 #endif
                 if (std.actsound == 1) {
                 	#ifdef ALSA
-                		alsa_make_noise(std.soundoff);
+                		alsa_make_noise(std.soundon);
                 	#endif
                 } else {
                 	usleep(delay * 5000);

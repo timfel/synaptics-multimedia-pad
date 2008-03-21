@@ -12,6 +12,10 @@
 	#include <unistd.h>
 	#include <fcntl.h>
 	#include <sys/ioctl.h>
+	
+	//gettext stuff
+	#include <libintl.h>
+	#define _(String) gettext (String)
 
 	// the osd color
 	#define OSD_COLOR "green1"

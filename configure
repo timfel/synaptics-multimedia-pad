@@ -5137,8 +5137,7 @@ if test $xosd = "yes"; then
 	OPTLIBS="$OPTLIBS -lxosd -lpthread -lXext -lX11 -lXinerama"
 fi
 
-
-ac_config_files="$ac_config_files Makefile doc/Makefile m4/Makefile src/Makefile"
+ac_config_files="$ac_config_files Makefile doc/Makefile m4/Makefile src/Makefile data/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -5724,6 +5723,7 @@ do
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "m4/Makefile") CONFIG_FILES="$CONFIG_FILES m4/Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "data/Makefile") CONFIG_FILES="$CONFIG_FILES data/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
@@ -6469,6 +6469,7 @@ if test "$no_create" != yes; then
   $ac_cs_success || { (exit 1); exit 1; }
 fi
 
+echo "#define PREFIX \"${prefix}\"" >> config.h
 
 #####################################################################
 ## Info
@@ -6486,5 +6487,6 @@ echo "DEBUG ....................... $debug"
 echo "ALSA ........................ $alsa"
 echo "XOSD ........................ $xosd"
 echo
+echo "Files will be installed under ${prefix}"
 echo
 echo "Now type make, make install"

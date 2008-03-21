@@ -31,7 +31,10 @@ int alsa_make_noise(const char* filename)
      	return(err);
     }
          
-    rFile = fopen("/home/tim/ready.wav", "r");
+    rFile = fopen(filename, "r");
+    #ifdef DEBUG
+    	printf("Playing sound: %s\n", filename);fflush(stdout);
+    #endif
     (void)fseek (rFile , 0 , SEEK_END);
     lSize = ftell(rFile);
     rewind(rFile);
@@ -45,7 +48,7 @@ int alsa_make_noise(const char* filename)
     	#ifdef DEBUG
     		printf("Requested allocation size: %d \n", lSize);
     	#endif
-    	printf("Not enough memory, file is too long!");
+    	printf("Not enough memory, file is too large!\n");
     	fflush(stdout);	
     }
     	

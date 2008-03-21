@@ -55,15 +55,16 @@ if test $xosd = "yes"; then
 	OPTLIBS="$OPTLIBS -lxosd -lpthread -lXext -lX11 -lXinerama"
 fi
 
-
 AC_CONFIG_FILES([
    Makefile
    doc/Makefile
    m4/Makefile
    src/Makefile
+   data/Makefile
 ])
 
 AC_OUTPUT
+echo "#define PREFIX \"${prefix}\"" >> config.h
 
 #####################################################################
 ## Info
@@ -81,5 +82,6 @@ echo "DEBUG ....................... $debug"
 echo "ALSA ........................ $alsa"
 echo "XOSD ........................ $xosd"
 echo
+echo "Files will be installed under ${prefix}"
 echo
 echo "Now type make, make install"

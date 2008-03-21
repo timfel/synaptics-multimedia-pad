@@ -6,6 +6,12 @@ conf_read(Config* config)
 {
 	Config std;
 	std = *config;
+	char configfile[40] = {'\0'};
+    FILE* cfile;
+    char buffer[10] = {'\0'};
+    char c;
+    char buffer2[127] = {'\0'};
+    int i;
 	
 	std.xmax = 980;
 	std.ymax = 750;
@@ -27,12 +33,10 @@ conf_read(Config* config)
 	std.alsamixer[0] = '\0';
 	char* actions[9] = {std.a1, std.a2, std.a3, std.a4, std.a5, std.a6, std.a7, std.a8, std.a9};
 	
-    char configfile[40] = {'\0'};
-    FILE* cfile;
-    char buffer[10] = {'\0'};
-    char c;
-    char buffer2[127] = {'\0'};
-    int i;
+	#ifdef ALSA
+		sprintf(std.soundon, "%s/share/synaptics-multimedia-pad/on.wav", PREFIX);
+		sprintf(std.soundoff, "%s/share/synaptics-multimedia-pad/off.wav", PREFIX);
+	#endif
     
     strcpy(configfile, getenv("HOME"));
     strcat(configfile, "/.medion-multimedia.cfg");
