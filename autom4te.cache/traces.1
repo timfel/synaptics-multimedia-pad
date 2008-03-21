@@ -395,8 +395,6 @@ m4trace:configure.ac:15: -1- AH_OUTPUT([HAVE_UNISTD_H], [/* Define to 1 if you h
 #undef HAVE_UNISTD_H])
 m4trace:configure.ac:15: -1- AH_OUTPUT([HAVE_X11_XDEFS_H], [/* Define to 1 if you have the <X11/Xdefs.h> header file. */
 #undef HAVE_X11_XDEFS_H])
-m4trace:configure.ac:15: -1- AH_OUTPUT([HAVE_ALSA_ASOUNDLIB_H], [/* Define to 1 if you have the <alsa/asoundlib.h> header file. */
-#undef HAVE_ALSA_ASOUNDLIB_H])
 m4trace:configure.ac:16: -1- AH_OUTPUT([HAVE_MEMSET], [/* Define to 1 if you have the `memset\' function. */
 #undef HAVE_MEMSET])
 m4trace:configure.ac:16: -1- AH_OUTPUT([HAVE_RINT], [/* Define to 1 if you have the `rint\' function. */
@@ -406,26 +404,33 @@ m4trace:configure.ac:16: -1- AH_OUTPUT([HAVE_STRSTR], [/* Define to 1 if you hav
 m4trace:configure.ac:17: -1- AC_SUBST([RANLIB])
 m4trace:configure.ac:17: -1- AC_SUBST_TRACE([RANLIB])
 m4trace:configure.ac:17: -1- m4_pattern_allow([^RANLIB$])
-m4trace:configure.ac:19: -1- AC_CONFIG_FILES([
+m4trace:configure.ac:25: -1- AC_DEFINE_TRACE_LITERAL([DEBUG])
+m4trace:configure.ac:25: -1- m4_pattern_allow([^DEBUG$])
+m4trace:configure.ac:25: -1- AH_OUTPUT([DEBUG], [/* */
+#undef DEBUG])
+m4trace:configure.ac:34: -1- AC_DEFINE_TRACE_LITERAL([ALSA])
+m4trace:configure.ac:34: -1- m4_pattern_allow([^ALSA$])
+m4trace:configure.ac:34: -1- AH_OUTPUT([ALSA], [/* */
+#undef ALSA])
+m4trace:configure.ac:40: -1- AC_CONFIG_FILES([
    Makefile
-   README
    doc/Makefile
    m4/Makefile
    src/Makefile
 ])
-m4trace:configure.ac:27: -1- AC_SUBST([LIB@&t@OBJS], [$ac_libobjs])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([LIB@&t@OBJS])
-m4trace:configure.ac:27: -1- m4_pattern_allow([^LIB@&t@OBJS$])
-m4trace:configure.ac:27: -1- AC_SUBST([LTLIBOBJS], [$ac_ltlibobjs])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([LTLIBOBJS])
-m4trace:configure.ac:27: -1- m4_pattern_allow([^LTLIBOBJS$])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([top_builddir])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([srcdir])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([abs_srcdir])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([top_srcdir])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([abs_top_srcdir])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([builddir])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([abs_builddir])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([abs_top_builddir])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([INSTALL])
-m4trace:configure.ac:27: -1- AC_SUBST_TRACE([MKDIR_P])
+m4trace:configure.ac:47: -1- AC_SUBST([LIB@&t@OBJS], [$ac_libobjs])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([LIB@&t@OBJS])
+m4trace:configure.ac:47: -1- m4_pattern_allow([^LIB@&t@OBJS$])
+m4trace:configure.ac:47: -1- AC_SUBST([LTLIBOBJS], [$ac_ltlibobjs])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([LTLIBOBJS])
+m4trace:configure.ac:47: -1- m4_pattern_allow([^LTLIBOBJS$])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([top_builddir])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([srcdir])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([abs_srcdir])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([top_srcdir])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([abs_top_srcdir])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([builddir])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([abs_builddir])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([abs_top_builddir])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([INSTALL])
+m4trace:configure.ac:47: -1- AC_SUBST_TRACE([MKDIR_P])

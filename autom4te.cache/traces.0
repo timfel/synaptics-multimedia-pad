@@ -676,7 +676,9 @@ You should run autoupdate.], [../../lib/autoconf/oldnames.m4:96: AC_STDC_HEADERS
 configure.ac:14: the top level])
 m4trace:configure.ac:14: -1- m4_pattern_allow([^STDC_HEADERS$])
 m4trace:configure.ac:17: -1- m4_pattern_allow([^RANLIB$])
-m4trace:configure.ac:27: -1- m4_pattern_allow([^LIB@&t@OBJS$])
-m4trace:configure.ac:27: -1- m4_pattern_allow([^LTLIBOBJS$])
-m4trace:configure.ac:27: -1- _AC_AM_CONFIG_HEADER_HOOK([$ac_file])
-m4trace:configure.ac:27: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
+m4trace:configure.ac:25: -1- m4_pattern_allow([^DEBUG$])
+m4trace:configure.ac:34: -1- m4_pattern_allow([^ALSA$])
+m4trace:configure.ac:47: -1- m4_pattern_allow([^LIB@&t@OBJS$])
+m4trace:configure.ac:47: -1- m4_pattern_allow([^LTLIBOBJS$])
+m4trace:configure.ac:47: -1- _AC_AM_CONFIG_HEADER_HOOK([$ac_file])
+m4trace:configure.ac:47: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS

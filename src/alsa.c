@@ -27,7 +27,7 @@ int make_noise(const char* filename)
                                   SND_PCM_ACCESS_RW_INTERLEAVED,
                                   1,
                                   11025,
-                                  2,
+                                  1,
                                   0)) < 0) /* 5sec */
     {   
      	printf("Playback open error: %s\n", snd_strerror(err));
@@ -41,7 +41,7 @@ int make_noise(const char* filename)
     setbuf(rFile, Buffer);
 	(void)fread(Buffer,1,(size_t)lSize,rFile);
 
-    (void)snd_pcm_writei(handle, Buffer, sizeof(Buffer));
+    (void)snd_pcm_writei(handle, Buffer, (size_t)lSize);
     (void)snd_pcm_close(handle);
     (void)fclose(rFile);
 	return 0;

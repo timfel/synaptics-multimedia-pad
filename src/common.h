@@ -14,6 +14,7 @@
 
 #include <X11/Xdefs.h>
 #include "synaptics.h"
+#include "../config.h"
 
 #define CR 13            /* Decimal code of Carriage Return char */
 #define LF 10            /* Decimal code of Line Feed char */
@@ -26,7 +27,8 @@ typedef struct {
 	int triggerx;
 	int triggery;
 	int actsound;
-	char soundname[239];
+	char soundon[239];
+	char soundoff[239];
 	char a1[127];
 	char a2[127];
 	char a3[127];

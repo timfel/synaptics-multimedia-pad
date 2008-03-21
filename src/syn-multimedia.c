@@ -19,7 +19,7 @@
 
 #include "common.h"
 #include "syntool.h"
-#include "config.h"
+#include "conf.h"
 #include "alsa.h"
 
 Config std;
@@ -93,13 +93,13 @@ monitor(SynapticsSHM *synshm, int delay)
 	            mmmode = 1;
 	            set_touchpad(synshm, 1);
 	            if (std.actsound == 1)
-                	make_noise(std.soundname);
+                	make_noise(std.soundon);
                 /* usleep(delay * 5000); */
             } else {
 	            mmmode = 0;
 	            set_touchpad(synshm, 0);
 	            if (std.actsound == 1)
-                	make_noise(std.soundname);
+                	make_noise(std.soundoff);
 	            /* usleep(delay * 5000); */
             }
         }
