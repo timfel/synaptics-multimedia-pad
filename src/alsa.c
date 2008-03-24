@@ -1,7 +1,7 @@
 #include "alsa.h"
  
 #ifdef ALSA
-int alsa_make_noise(const char* filename)
+int alsa_make_noise(char* filename)
 {
 	static char *device = "default";                        /* playback device */
 	snd_output_t *output = NULL;

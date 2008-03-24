@@ -17,6 +17,7 @@ AC_CHECK_FUNCS([memset rint strstr])
 AC_PROG_RANLIB
 
 AC_SUBST(OPTLIBS)	# Optional Libraries go here
+AC_SUBST(OPTCFLAGS)	# Optional flags go here
 
 ############### DEBUG ##############
 AC_ARG_ENABLE(debug-mode,
@@ -32,15 +33,34 @@ AC_ARG_ENABLE(alsa,
 			 [[  --disable-alsa	do not use ALSA for on/off notfication]],
 			 alsa="no", alsa="yes")
 
+############## GSTREAMER #########
+AC_ARG_ENABLE(gstreamer,
+		[[  --disable-gstreamer	do not use Gstreamer for on/off notification]],
+		gstreamer="no", gstreamer="yes")
+
+if test $gstreamer = "yes" ; then
+	PKG_CHECK_MODULES(GSTREAMER,
+			[ gstreamer-0.10 ],
+			[AC_DEFINE(GSTREAMER, 1, [ ])],
+			[ gstreamer="no" ])
+fi
+
+if test $gstreamer = "yes" ; then
+	OPTLIBS="$OPTLIBS `pkg-config --libs gstreamer-0.10`"
+	OPTCFLAGS="$OPTCFLAGS `pkg-config --cflags gstreamer-0.10`"
+	alsa="no (using Gstreamer)"
+fi
+
+############## ALSA ##############
 if test $alsa = "yes" ; then
 	AC_CHECK_HEADER(alsa/asoundlib.h,
 				[AC_DEFINE(ALSA, 1, [ ])], alsa="no")
 fi
 
-if test $alsa = "yes"; then
+if test $alsa = "yes" ; then
 	OPTLIBS="$OPTLIBS -lasound"
 fi
-			 
+
 ############### XOSD ##############
 AC_ARG_ENABLE(xosd,
 			 [[  --disable-xosd	do not use XOSD for visualisation]],
@@ -80,6 +100,7 @@ echo "Configuration Options Summary:"
 echo
 echo "DEBUG ....................... $debug"
 echo "ALSA ........................ $alsa"
+echo "GSTREAMER ................... $gstreamer"
 echo "XOSD ........................ $xosd"
 echo
 echo "Files will be installed under ${prefix}"

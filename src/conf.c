@@ -38,6 +38,10 @@ conf_read(Config* config)
 		sprintf(std.soundon, "%s/share/synaptics-multimedia-pad/on.wav", PREFIX);
 		sprintf(std.soundoff, "%s/share/synaptics-multimedia-pad/off.wav", PREFIX);
 	#endif
+	#ifdef GSTREAMER
+		sprintf(std.soundon, "%s/share/synaptics-multimedia-pad/on.ogg", PREFIX);
+		sprintf(std.soundoff, "%s/share/synaptics-multimedia-pad/off.ogg", PREFIX);
+	#endif
     
     strcpy(configfile, getenv("HOME"));
     strcat(configfile, "/.medion-multimedia.cfg");
@@ -85,8 +89,10 @@ conf_read(Config* config)
         }
         
         #ifndef ALSA
-			std.actsound = 0;
-		#endif
+         #ifndef GSTREAMER
+		std.actsound = 0;
+	 #endif
+	#endif
 		
 		#ifndef XOSD
 			std.osd = 0;

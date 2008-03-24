@@ -20,7 +20,7 @@
 #include "common.h"
 #include "syn.h"
 #include "conf.h"
-#include "alsa.h"
+#include "audio.h"
 #include "onscr.h"
 
 Config std;
@@ -101,9 +101,7 @@ monitor(SynapticsSHM *synshm, int delay)
                 		onscr_mmm_on(osd);
                 #endif
                 if (std.actsound == 1) {
-                	#ifdef ALSA
-                		alsa_make_noise(std.soundon);
-                	#endif
+                	make_noise(std.soundon);
                 } else {
                 	usleep(delay * 5000);
                 }
@@ -115,9 +113,7 @@ monitor(SynapticsSHM *synshm, int delay)
                 		onscr_mmm_off(osd);
                 #endif
                 if (std.actsound == 1) {
-	            	#ifdef ALSA
-                		alsa_make_noise(std.soundoff);
-                	#endif
+               		make_noise(std.soundoff);
                 } else {
                 	usleep(delay * 5000);
                 }
