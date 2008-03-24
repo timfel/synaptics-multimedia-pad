@@ -80,7 +80,7 @@ syn_get_matrixcode(SynapticsSHM *cur, Config* std)
     
     if ((actioncode < 4) && (cur->y > std->triggery))
     {
-    	buttony = std->ymax - cur->y + std->triggery; /* Map the value to scale properly */
+ 	buttony = std->ymax - cur->y + 2*std->triggery; /* Map the value to scale properly */
     	actioncode = buttony * 100 / std->ymax + 100; /* W/G = p/100 ;) */
     }
     return actioncode;
