@@ -9,7 +9,7 @@
  * example, we will use them, however.
  */
 
-GstElement *decoder;
+GstElement *decoder, *conv;
 
 static gboolean
 bus_call (GstBus     *bus,
@@ -62,6 +62,79 @@ new_pad (GstElement *element,
   gst_object_unref (sinkpad);
 }
 
+static void
+wav_pad (GstElement *element,
+	 GstPad     *pad,
+	 gpointer    data)
+{
+  GstPad *sinkpad;
+  /* We can now link this pad with the audio decoder */
+  #ifdef DEBUG
+    g_print ("Dynamic pad created, linking ...\n");
+  #endif
+
+  sinkpad = gst_element_get_pad (conv, "sink");
+  gst_pad_link (pad, sinkpad);
+
+  gst_object_unref (sinkpad);
+}
+
+int
+wav_play (char* filename)
+{
+  GMainLoop *loop;
+  GstBus *bus;
+  GstElement *pipeline, *source, *parser, *sink;
+  
+  /* initialize GStreamer */
+  gst_init (NULL, NULL);
+  loop = g_main_loop_new (NULL, FALSE);
+
+  pipeline = gst_pipeline_new ("audio-player");
+  source = gst_element_factory_make ("filesrc", "file-source");
+  parser = gst_element_factory_make ("wavparse", "parser");
+  conv = gst_element_factory_make ("audioconvert", "converter");
+  sink = gst_element_factory_make ("alsasink", "alsa-output");
+  g_object_set (G_OBJECT (source), "location", filename, NULL);
+  bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
+	
+  gst_bus_add_watch (bus, bus_call, loop);
+  gst_object_unref (bus);
+
+  /* put all elements in a bin */
+  gst_bin_add_many (GST_BIN (pipeline),
+			source, parser, conv, sink, NULL);
+
+  /* link together - note that we cannot link the parser and
+   * conv yet, becuse the parser uses dynamic pads. For that,
+   * we set a pad-added signal handler. */
+  gst_element_link (source, parser);
+  gst_element_link_many (conv, sink, NULL);
+  g_signal_connect (parser, "pad-added", G_CALLBACK (wav_pad), NULL); 
+
+  /* Now set to playing and iterate. */
+  #ifdef DEBUG
+	g_print ("Setting to PLAYING\n");
+  #endif
+  gst_element_set_state (pipeline, GST_STATE_PLAYING);
+  #ifdef DEBUG
+	g_print ("Running\n");
+  #endif
+  g_main_loop_run (loop);
+
+  /* clean up nicely */
+  #ifdef DEBUG
+	g_print ("Returned, stopping playback\n");
+  #endif
+  gst_element_set_state (pipeline, GST_STATE_NULL);
+  #ifdef DEBUG
+	g_print ("Deleting pipeline\n");
+  #endif
+  gst_object_unref (GST_OBJECT (pipeline));
+
+  return 0;
+}
+
 int
 gstreamer_play (char* filename)
 {
@@ -72,9 +145,6 @@ gstreamer_play (char* filename)
   char* decoderstr;
   char* demuxstr;
 
-  /* initialize GStreamer */
-  gst_init (NULL, NULL);
-  loop = g_main_loop_new (NULL, FALSE);
   #ifdef DEBUG
     printf("Trying to play %s.\n", filename);fflush(stdout);
   #endif
@@ -95,11 +165,14 @@ gstreamer_play (char* filename)
 	demuxstr = (char*)malloc(sizeof(char)*14);
 	strcpy(demuxstr, "ffdemux_asf");
   } else if (strstr(filename, ".wav") != NULL) {
-	demuxstr = (char*)malloc(sizeof(char)*9);
-	strcpy(demuxstr, "wavparse");
+	return wav_play(filename);	
   } else {
 	return -1;
   }
+  
+  /* initialize GStreamer */
+  gst_init (NULL, NULL);
+  loop = g_main_loop_new (NULL, FALSE);
 
   /* create elements */
   pipeline = gst_pipeline_new ("audio-player");
@@ -108,20 +181,16 @@ gstreamer_play (char* filename)
   decoder = gst_element_factory_make (decoderstr, "decoder");
   conv = gst_element_factory_make ("audioconvert", "converter");
   sink = gst_element_factory_make ("alsasink", "alsa-output");
-  if (!pipeline || !source || !parser || !conv || !sink) {
+  if (!pipeline || !source || !parser || !decoder || !conv || !sink) {
     #ifdef DEBUG
       g_print ("One element could not be created\n");
       if (!parser)
 	g_print ("Check your demux\n");
+      if (!decoder)
+	g_print ("Check your decoder\n");
     #endif
     return -1;
   }
-  if (strstr(filename, ".wav") == NULL) {
-      if (!decoder)
-	g_print ("Check your decoder\n");
-      return -1;
-  }
-
 
   /* set filename property on the file source. Also add a message
    * handler. */
@@ -132,15 +201,8 @@ gstreamer_play (char* filename)
   gst_object_unref (bus);
 
   /* put all elements in a bin */
-  if (strstr(filename, ".wav") == NULL)
-	  gst_bin_add_many (GST_BIN (pipeline),
+  gst_bin_add_many (GST_BIN (pipeline),
 		    source, parser, decoder, conv, sink, NULL);
-  else
-	  #ifdef DEBUG
-		g_print("Playing *.wav");
-	  #endif
-	  gst_bin_add_many (GST_BIN (pipeline),
-		    source, parser, conv, sink, NULL);
 
   /* link together - note that we cannot link the parser and
    * decoder yet, becuse the parser uses dynamic pads. For that,
