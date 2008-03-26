@@ -1,0 +1,14 @@
+Source: synaptics-multimedia-pad
+Section: unknown
+Priority: extra
+Maintainer: Tim Felgentreff <timfelgentreff@gmail.com>
+Build-Depends: debhelper (>= 5), autotools-dev
+Standards-Version: 3.7.2
+
+Package: synaptics-multimedia-pad
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libxosd2, libgstreamer0.10-0
+Description: Multimedia Touchpad Daemon
+ For those touchpads, which have a multimedia-mode, this 
+ daemon provides user-space functionality based on the
+ synaptics driver
