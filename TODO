@@ -14,3 +14,4 @@ Nice-To-Have:
 
 Bugs:
  * Detection of Corner-Tap very flaky
+ * ALSA plays only few wav files properly
