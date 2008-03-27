@@ -1,4 +1,10 @@
-2008-02-20
+2008-02-28 - 0.0.2
+	optional Gstreamer backend
+	optional Xosd screens
+	NLS
+
+2008-02-20 - 0.0.1
 	Inital functionality based on synclient from synaptics 0.14
 	Config file, Simple Mixer control, 9 launchers
 	Alsa-notification
+
