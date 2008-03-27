@@ -42,9 +42,9 @@ void onscr_mmm_off(xosd* disp_obj)
 
 void onscr_volume(xosd* disp_obj, int value, const char* mixer)
 {
-	char* title;
-	title = (char*)malloc(sizeof(char)*(8+strlen(mixer)));
-	sprintf(title, _("Volume %s"), mixer);
+	char title[127] = {'\0'};
+	/* title = (char*)malloc(sizeof(char)*(8+strlen(mixer))); */
+	sprintf(title, _("%s Volume"), mixer);
 	
 	xosd_display (disp_obj, 0, XOSD_string, title);
 	xosd_display (disp_obj, 1, XOSD_percentage, value);
