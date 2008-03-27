@@ -1,6 +1,9 @@
 INCLUDES = 
 AM_LDFLAGS = 
 AM_CFLAGS = $(OPTCFLAGS)
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+LDADD = @LIBINTL@
+localedir = $(datadir)/locale
 
 bin_PROGRAMS = symultimediad
 symultimediad_SOURCES = syn-multimedia.c synaptics.h \

@@ -5,7 +5,7 @@ xosd* onscr_init()
 {
 	xosd* disp_obj;
 	setlocale(LC_ALL, "");
-	//bindtextdomain (PACKAGE, LOCALEDIR);
+	bindtextdomain (PACKAGE, LOCALEDIR);
     textdomain (PACKAGE);
 
 	

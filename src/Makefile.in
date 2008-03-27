@@ -134,7 +134,7 @@ infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
-localedir = @localedir@
+localedir = $(datadir)/locale
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
@@ -153,6 +153,8 @@ top_srcdir = @top_srcdir@
 INCLUDES = 
 AM_LDFLAGS = 
 AM_CFLAGS = $(OPTCFLAGS)
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+LDADD = @LIBINTL@
 symultimediad_SOURCES = syn-multimedia.c synaptics.h \
 			audio.c audio.h \
 			alsa.c alsa.h \
