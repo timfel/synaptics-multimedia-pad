@@ -1,0 +1,17 @@
+xmax: 986
+ymax: 728
+zmin: 30
+triggerx: 947
+triggery: 80
+action1: eins
+action2: zwei
+action3: drei
+action4: vier
+action5: fünf
+action6: sechs
+action7: sieben
+action8: acht
+action9: neun
+mixer: PCM
+sound: 1
+osd: 1
