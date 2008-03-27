@@ -15,6 +15,7 @@ AC_STDC_HEADERS
 AC_CHECK_HEADERS([stddef.h stdlib.h string.h sys/time.h unistd.h X11/Xdefs.h])
 AC_CHECK_FUNCS([memset rint strstr])
 AC_PROG_RANLIB
+AM_GNU_GETTEXT([external])
 
 AC_SUBST(OPTLIBS)	# Optional Libraries go here
 AC_SUBST(OPTCFLAGS)	# Optional flags go here
@@ -75,7 +76,7 @@ if test $xosd = "yes"; then
 	OPTLIBS="$OPTLIBS -lxosd -lpthread -lXext -lX11 -lXinerama"
 fi
 
-AC_CONFIG_FILES([
+AC_CONFIG_FILES([ po/Makefile.in
    Makefile
    doc/Makefile
    m4/Makefile

@@ -1,0 +1,38 @@
+# German translations for synaptics-multimedia-pad package
+# German messages for synaptics-multimedia-pad.
+# Copyright (C) 2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the synaptics-multimedia-pad package.
+# Tim Felgentreff <timfelgentreff@gmail.com>, 2008.
+# 	Tim Felgentreff <timfelgentreff@gmail.com>, 2008.
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: synaptics-multimedia-pad 0.0.2\n"
+"Report-Msgid-Bugs-To: Tim Felgentreff timfelgentreff@gmail.com\n"
+"POT-Creation-Date: 2008-03-28 00:41+0100\n"
+"PO-Revision-Date: 2008-03-28 00:43+0100\n"
+"Last-Translator:  <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
+
+#: src/onscr.c:34
+msgid "Multimedia enabled"
+msgstr "Funktionstasten aktiv"
+
+#: src/onscr.c:40
+msgid "Multimedia disabled"
+msgstr "Funktionstasten abgeschaltet"
+
+#: src/onscr.c:47
+#, c-format
+msgid "%s Volume"
+msgstr "%s Lautstärke"
+
+#: src/onscr.c:55
+msgid "Command"
+msgstr "Befehl"
+
