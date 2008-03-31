@@ -9,4 +9,9 @@ echo "- autoheader."
 autoheader
 echo "- automake."
 automake -a
+echo "- configure"
+if [ -z "$NOCONFIGURE" ]; then
+	./configure "$@"
+	./configure "$@"
+fi
 exit

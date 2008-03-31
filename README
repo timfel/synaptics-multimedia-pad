@@ -1,0 +1,13 @@
+This tool uses the synaptics shared-memory interface to 
+react to mode switches on "multimedia-touchpads".
+
+To install, use:
+	./autogen.sh
+	make
+	make install
+or
+	fakeroot dpkg-buildpackage
+
+Then edit the configuration values in data/medion-multimedia.cfg.EXAMPLE 
+and copy the file to $HOME/.medion-multimedia.cfg
+
