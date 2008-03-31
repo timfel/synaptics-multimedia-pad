@@ -82,6 +82,7 @@ monitor(SynapticsSHM *synshm, int delay)
     SynapticsSHM old;
     int action = 0;
     int start = 1;
+    pthread_t audio;
     
     memset(&old, 0, sizeof(SynapticsSHM));
     
@@ -101,7 +102,8 @@ monitor(SynapticsSHM *synshm, int delay)
                 		onscr_mmm_on(osd);
                 #endif
                 if (std.actsound == 1) {
-                	make_noise(std.soundon);
+                	pthread_create(&audio, NULL, make_noise, std.soundon);
+                	pthread_detach(audio);
                 }
             } else {
 	            mmmode = 0;
@@ -111,7 +113,8 @@ monitor(SynapticsSHM *synshm, int delay)
                 		onscr_mmm_off(osd);
                 #endif
                 if (std.actsound == 1) {
-               		make_noise(std.soundoff);
+               		pthread_create(&audio, NULL, make_noise, std.soundoff);
+               		pthread_detach(audio);
                 }
             }
         }

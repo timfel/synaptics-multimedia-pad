@@ -12,7 +12,7 @@
 GstElement *decoder, *conv;
 
 static gboolean
-bus_call (GstBus     *bus,
+bus_call (GstBus *bus,
 	  GstMessage *msg,
 	  gpointer    data)
 {

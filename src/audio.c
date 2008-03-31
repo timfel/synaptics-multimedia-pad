@@ -2,17 +2,15 @@
 
 int make_noise(char* filename)
 {
-  int value = 0;
+  pthread_setcancelstate (PTHREAD_CANCEL_ENABLE, NULL);
+  pthread_setcanceltype (PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+  
   #ifdef ALSA
-  	pthread_t p;
-	pthread_create(&p, NULL, alsa_make_noise, filename);
-	value = pthread_detach(p);
+	return alsa_make_noise(filename);
   #endif
 
   #ifdef GSTREAMER
-    pthread_t p;
-	pthread_create(&p, NULL, gstreamer_play, filename);
-	value = pthread_detach(p);
+	return gstreamer_play(filename);
   #endif
-  return value;
+  return 0;
 }
