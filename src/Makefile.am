@@ -1,7 +1,7 @@
 INCLUDES = 
 AM_LDFLAGS = 
 AM_CFLAGS = $(OPTCFLAGS)
-AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" -D_REENTRANT
 LDADD = @LIBINTL@
 localedir = $(datadir)/locale
 
@@ -15,5 +15,6 @@ symultimediad_SOURCES = syn-multimedia.c synaptics.h \
 			gstreamer.c gstreamer.h \
 			common.h
 symultimediad_DEPENDENCIES = 
-symultimediad_LDADD = -lm $(OPTLIBS)
+symultimediad_LDADD = -lm $(OPTLIBS) -lpthread
+
 

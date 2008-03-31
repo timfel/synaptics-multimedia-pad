@@ -102,8 +102,6 @@ monitor(SynapticsSHM *synshm, int delay)
                 #endif
                 if (std.actsound == 1) {
                 	make_noise(std.soundon);
-                } else {
-                	usleep(delay * 5000);
                 }
             } else {
 	            mmmode = 0;
@@ -114,8 +112,6 @@ monitor(SynapticsSHM *synshm, int delay)
                 #endif
                 if (std.actsound == 1) {
                		make_noise(std.soundoff);
-                } else {
-                	usleep(delay * 5000);
                 }
             }
         }

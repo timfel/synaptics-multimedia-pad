@@ -184,7 +184,7 @@ top_srcdir = @top_srcdir@
 INCLUDES = 
 AM_LDFLAGS = 
 AM_CFLAGS = $(OPTCFLAGS)
-AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" -D_REENTRANT
 LDADD = @LIBINTL@
 symultimediad_SOURCES = syn-multimedia.c synaptics.h \
 			audio.c audio.h \
@@ -196,7 +196,7 @@ symultimediad_SOURCES = syn-multimedia.c synaptics.h \
 			common.h
 
 symultimediad_DEPENDENCIES = 
-symultimediad_LDADD = -lm $(OPTLIBS)
+symultimediad_LDADD = -lm $(OPTLIBS) -lpthread
 all: all-am
 
 .SUFFIXES:
