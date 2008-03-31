@@ -38,6 +38,7 @@ run_action(int actioncode)
     int count = 0;
     char cmd[127] = {'\0'};
     char percentage[4] = {'\0'};
+    pthread_t run;
     
     if (actioncode != 0) {
         if ((actioncode > 4) && (actioncode < 100)) {
@@ -68,10 +69,9 @@ run_action(int actioncode)
         	#endif
         	sprintf(cmd,"amixer sset \"%s\" \"%d%\"",std.alsamixer,actioncode-100);
         }
-    
-        strcat(cmd, " &");
-        if (cmd[1] != '&')
-            return system(cmd);
+        
+        pthread_create(&run, NULL, system, cmd);
+		return pthread_detach(run);
     }
     return 0;
 }

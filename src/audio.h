@@ -4,7 +4,6 @@
 #include "common.h"
 #include "alsa.h"
 #include "gstreamer.h"
-#include <pthread.h>
 
 int make_noise(char* filename);
 

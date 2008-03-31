@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stddef.h>
 #include <math.h>
+#include <pthread.h>
 
 #include <X11/Xdefs.h>
 #include "synaptics.h"
