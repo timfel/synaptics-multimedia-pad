@@ -1,7 +1,6 @@
 #ifndef ONSCR_H
 #define ONSCR_H
 
-
 #include "common.h"
 
 #ifdef XOSD
