@@ -721,6 +721,7 @@ LTLIBINTL
 POSUB
 OPTLIBS
 OPTCFLAGS
+PREFIX
 PKG_CONFIG
 GSTREAMER_CFLAGS
 GSTREAMER_LIBS
@@ -4522,7 +4523,8 @@ fi
 
 
 
-for ac_header in stddef.h stdlib.h string.h sys/time.h unistd.h X11/Xdefs.h
+
+for ac_header in stddef.h stdlib.h string.h sys/time.h unistd.h X11/Xdefs.h pthread.h
 do
 as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
 if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
@@ -7071,6 +7073,14 @@ _ACEOF
 	# Optional Libraries go here
 	# Optional flags go here
 
+if test "x${prefix}" = "xNONE"; then
+   PREFIX="${ac_default_prefix}"
+else
+   PREFIX="${prefix}"
+fi
+
+
+
 ############### DEBUG ##############
 # Check whether --enable-debug-mode was given.
 if test "${enable_debug_mode+set}" = set; then
@@ -8421,6 +8431,7 @@ LTLIBINTL!$LTLIBINTL$ac_delim
 POSUB!$POSUB$ac_delim
 OPTLIBS!$OPTLIBS$ac_delim
 OPTCFLAGS!$OPTCFLAGS$ac_delim
+PREFIX!$PREFIX$ac_delim
 PKG_CONFIG!$PKG_CONFIG$ac_delim
 GSTREAMER_CFLAGS!$GSTREAMER_CFLAGS$ac_delim
 GSTREAMER_LIBS!$GSTREAMER_LIBS$ac_delim
@@ -8428,7 +8439,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 14; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 15; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
@@ -9140,7 +9151,6 @@ if test "$no_create" != yes; then
   $ac_cs_success || { (exit 1); exit 1; }
 fi
 
-echo "#define PREFIX \"${prefix}\"" >> config.h
 
 #####################################################################
 ## Info
@@ -9159,6 +9169,6 @@ echo "ALSA ........................ $alsa"
 echo "GSTREAMER ................... $gstreamer"
 echo "XOSD ........................ $xosd"
 echo
-echo "Files will be installed under ${prefix}"
+echo "Files will be installed under $PREFIX"
 echo
 echo "Now type make, make install"

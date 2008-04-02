@@ -123,6 +123,7 @@ PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PKG_CONFIG = @PKG_CONFIG@
 POSUB = @POSUB@
+PREFIX = @PREFIX@
 RANLIB = @RANLIB@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
@@ -184,7 +185,7 @@ top_srcdir = @top_srcdir@
 INCLUDES = 
 AM_LDFLAGS = 
 AM_CFLAGS = $(OPTCFLAGS)
-AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" -D_REENTRANT
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" -D_REENTRANT -DPREFIX=\"$(PREFIX)\"
 LDADD = @LIBINTL@
 symultimediad_SOURCES = syn-multimedia.c synaptics.h \
 			audio.c audio.h \

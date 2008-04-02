@@ -20,6 +20,14 @@ AM_GNU_GETTEXT([external])
 AC_SUBST(OPTLIBS)	# Optional Libraries go here
 AC_SUBST(OPTCFLAGS)	# Optional flags go here
 
+if test "x${prefix}" = "xNONE"; then
+   PREFIX="${ac_default_prefix}"
+else
+   PREFIX="${prefix}"
+fi
+
+AC_SUBST(PREFIX)
+
 ############### DEBUG ##############
 AC_ARG_ENABLE(debug-mode,
 	         [  --enable-debug-mode	enable debug mode],
@@ -85,7 +93,6 @@ AC_CONFIG_FILES([ po/Makefile.in
 ])
 
 AC_OUTPUT
-echo "#define PREFIX \"${prefix}\"" >> config.h
 
 #####################################################################
 ## Info
@@ -104,6 +111,6 @@ echo "ALSA ........................ $alsa"
 echo "GSTREAMER ................... $gstreamer"
 echo "XOSD ........................ $xosd"
 echo
-echo "Files will be installed under ${prefix}"
+echo "Files will be installed under $PREFIX"
 echo
 echo "Now type make, make install"
