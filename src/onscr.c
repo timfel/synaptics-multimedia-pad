@@ -46,12 +46,14 @@ void onscr_volume(xosd* disp_obj, int value, const char* mixer)
 	/* title = (char*)malloc(sizeof(char)*(8+strlen(mixer))); */
 	sprintf(title, _("%s Volume"), mixer);
 	
+	xosd_scroll(disp_obj, 2);
 	xosd_display (disp_obj, 0, XOSD_string, title);
 	xosd_display (disp_obj, 1, XOSD_percentage, value);
 }
 
 void onscr_action(xosd* disp_obj, const char* value)
 {
+	xosd_scroll(disp_obj, 2);
 	xosd_display(disp_obj, 0, XOSD_string, _("Command"));
 	xosd_display (disp_obj, 1, XOSD_string, value);
 }

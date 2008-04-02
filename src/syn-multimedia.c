@@ -105,6 +105,7 @@ monitor(SynapticsSHM *synshm, int delay)
                 	pthread_create(&audio, NULL, make_noise, std.soundon);
                 	pthread_detach(audio);
                 }
+		usleep(delay*1000);
             } else {
 	            mmmode = 0;
 	            syn_set_touchpad(synshm, 0);
@@ -116,9 +117,10 @@ monitor(SynapticsSHM *synshm, int delay)
                		pthread_create(&audio, NULL, make_noise, std.soundoff);
                		pthread_detach(audio);
                 }
+		usleep(delay*1000);
             }
         }
-        if ((mmmode == 1) && (start == 0)) {
+        if ((mmmode == 1) && (start == 0) && (synshm->z >= std.zmin)) {
             action = syn_get_matrixcode(&cur, &std);
             run_action(action);
         } else
