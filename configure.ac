@@ -30,6 +30,11 @@ AC_SUBST(PREFIX)
 
 ############### Synaptics #########
 SYN_VERSION=`$(which synclient) -V | sed 's/[[.]]//g'`
+
+if test $SYN_VERSION = ""; then
+	echo "Couldn't determine version of synaptics-driver"
+	exit 1
+fi
 AC_SUBST(SYN_VERSION)
 
 ############### DEBUG ##############
@@ -114,6 +119,7 @@ echo "DEBUG ....................... $debug"
 echo "ALSA ........................ $alsa"
 echo "GSTREAMER ................... $gstreamer"
 echo "XOSD ........................ $xosd"
+echo "Synaptics ................... $SYN_VERSION"
 echo
 echo "Files will be installed under $PREFIX"
 echo
