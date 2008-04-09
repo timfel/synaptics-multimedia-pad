@@ -53,17 +53,22 @@ conf_read(Config* config)
 
     if (cfile == NULL) {
     	cfile = fopen((const char*)configfile, "w");
-	sprintf(deconfigfile, "%s/%s", PREFIX, "medion-multimedia.cfg.EXAMPLE");
+	sprintf(deconfigfile, "%s/%s", PREFIX, "/share/synaptics-multimedia-pad/medion-multimedia.cfg.EXAMPLE");
+	printf("Copying defaults... %s\n", deconfigfile);
+	fflush(stdout);
 	defile = fopen((const char*)deconfigfile, "r");
 	if (defile != NULL) {
 		c = fgetc(defile);
 		while (!(c == EOF)) {
-	      		fputc(cfile, c);
+			buffer[0] = c;
+			buffer[1] = '\0';
+	      		fprintf(cfile, "%s", buffer);
+			printf("%s", buffer);fflush(stdout);
               		c = fgetc(defile);
         	}
+		fclose(defile);
 	}
 	fclose(cfile);
-	fclose(defile);
 	cfile = fopen((const char*)configfile, "r");
     }
     
