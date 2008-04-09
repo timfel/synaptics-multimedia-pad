@@ -8,6 +8,8 @@ conf_read(Config* config)
 	std = *config;
 	char configfile[40] = {'\0'};
     FILE* cfile;
+    FILE* defile;
+    char deconfigfile[40] = {'\0'};
     char buffer[10] = {'\0'};
     char c;
     char buffer2[127] = {'\0'};
@@ -48,6 +50,22 @@ conf_read(Config* config)
     printf("Configfile: %s \n", configfile);
     
     cfile = fopen((const char*)configfile, "r");
+
+    if (cfile == NULL) {
+    	cfile = fopen((const char*)configfile, "w");
+	sprintf(deconfigfile, "%s/%s", PREFIX, "medion-multimedia.cfg.EXAMPLE");
+	defile = fopen((const char*)deconfigfile, "r");
+	if (defile != NULL) {
+		c = fgetc(defile);
+		while (!(c == EOF)) {
+	      		fputc(cfile, c);
+              		c = fgetc(defile);
+        	}
+	}
+	fclose(cfile);
+	fclose(defile);
+	cfile = fopen((const char*)configfile, "r");
+    }
     
     if (cfile != NULL) {
 		#ifdef DEBUG
