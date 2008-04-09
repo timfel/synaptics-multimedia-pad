@@ -14,8 +14,15 @@
 #include <pthread.h>
 
 #include <X11/Xdefs.h>
-#include <synaptics/synaptics.h>
 #include "../config.h"
+
+#if SYN_VERSION==0145
+	#include "synaptics_0_14_5.h"
+#endif
+#if SYN_VERSION==0146
+	#include "synaptics_0_14_6.h"
+#endif
+
 
 #define CR 13            /* Decimal code of Carriage Return char */
 #define LF 10            /* Decimal code of Line Feed char */

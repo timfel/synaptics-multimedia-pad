@@ -12,7 +12,7 @@ AC_AIX
 AC_ISC_POSIX
 AC_MINIX
 AC_STDC_HEADERS
-AC_CHECK_HEADERS([stddef.h stdlib.h string.h sys/time.h unistd.h X11/Xdefs.h pthread.h synaptics/synaptics.h])
+AC_CHECK_HEADERS([stddef.h stdlib.h string.h sys/time.h unistd.h X11/Xdefs.h pthread.h])
 AC_CHECK_FUNCS([memset rint strstr])
 AC_PROG_RANLIB
 AM_GNU_GETTEXT([external])
@@ -27,6 +27,10 @@ else
 fi
 
 AC_SUBST(PREFIX)
+
+############### Synaptics #########
+SYN_VERSION=`$(which synclient) -V | sed 's/[[.]]//g'`
+AC_SUBST(SYN_VERSION)
 
 ############### DEBUG ##############
 AC_ARG_ENABLE(debug-mode,
