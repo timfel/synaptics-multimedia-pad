@@ -14,7 +14,7 @@
 #include <pthread.h>
 
 #include <X11/Xdefs.h>
-#include "synaptics.h"
+#include <synaptics/synaptics.h>
 #include "../config.h"
 
 #define CR 13            /* Decimal code of Carriage Return char */
