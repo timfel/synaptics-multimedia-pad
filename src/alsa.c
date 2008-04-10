@@ -25,7 +25,7 @@ int alsa_make_noise(char* filename)
                                   1,
                                   11025,
                                   1,
-                                  5000)) < 0) /* 5sec */
+                                  500000000)) < 0) /* 5sec */
     {   
      	printf("Playback open error: %s\n", snd_strerror(err));
      	return(err);

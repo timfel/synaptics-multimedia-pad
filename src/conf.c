@@ -24,6 +24,7 @@ conf_read(Config* config)
 	std.actsound = 1;
 	std.soundon[0] = '\0';
 	std.soundoff[0] = '\0';
+	strcpy(std.corner, "RT");
 	std.a1[0] = '\0';
 	std.a2[0] = '\0';
 	std.a3[0] = '\0';
@@ -77,7 +78,7 @@ conf_read(Config* config)
         printf("%4s %4s %5s %2s %5s\n",
                 "MaxX", "MaxY", "Mixer", "Snd", "Xosd");
     	#endif
-        for (i = 0; i < 19; i++) {
+        for (i = 0; i < 20; i++) {
             (void)fscanf(cfile, "%s %s", buffer, buffer2);
             c = fgetc(cfile);
             while (!(c == CR || c == LF || c == EOF)) {
@@ -107,6 +108,8 @@ conf_read(Config* config)
                 strcpy(std.alsamixer, buffer2);
             else if (strstr(buffer, "osd") != NULL)
                 std.osd = atoi(buffer2);
+	    else if (strstr(buffer, "corner") != NULL)
+	    	strcpy(std.corner, buffer2);
             else
                 printf("Unmapped option in line %d. Check cfg!\n", i+1); 
         }

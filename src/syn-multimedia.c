@@ -62,19 +62,46 @@ run_action(int actioncode)
             	if (std.osd == 1)
             		onscr_action(osd, cmd);
             #endif 
-        } else {
+            pthread_create(&run, NULL, system, cmd);
+		return pthread_detach(run);
+        } else if (actioncode > 100) {
         	#ifdef XOSD
         		if (std.osd == 1)
         			onscr_volume(osd, actioncode-100, (const char*)std.alsamixer);
         	#endif
         	sprintf(cmd,"amixer sset \"%s\" \"%d%\"",std.alsamixer,actioncode-100);
+        	pthread_create(&run, NULL, system, cmd);
+			return pthread_detach(run);
         }
-        
-        pthread_create(&run, NULL, system, cmd);
-		return pthread_detach(run);
     }
     return 0;
 }
+
+int
+switch_mode(SynapticsSHM *synshm) {
+    if ((strstr(std.corner, "RT") != NULL) && (synshm->x >= std.triggerx) && (synshm->y <= std.triggery)) {
+    	#ifdef DEBUG
+    	printf("RT: x-wert: %d, y-wert: %d, trigX: %d, trigY: %d\n", synshm->x, synshm->y, std.triggerx, std.triggery);
+	#endif
+    	return 1;
+    } else if ((strstr(std.corner, "RB") != NULL) && (synshm->x >= std.triggerx) && (synshm->y >= std.triggery)) {
+    	#ifdef DEBUG
+    	printf("RB: x-wert: %d, y-wert: %d, trigX: %d, trigY: %d\n", synshm->x, synshm->y, std.triggerx, std.triggery);
+	#endif
+        return 1;
+    } else if ((strstr(std.corner, "LT") != NULL) && (synshm->x < std.triggerx) && (synshm->y <= std.triggery)) {
+    	#ifdef DEBUG
+    	printf("LT: x-wert: %d, y-wert: %d, trigX: %d, trigY: %d\n", synshm->x, synshm->y, std.triggerx, std.triggery);fflush(stdout);
+	#endif
+        return 1;
+    } else if ((strstr(std.corner, "LB") != NULL) && (synshm->x < std.triggerx) && (synshm->y >= std.triggery)) {
+    	#ifdef DEBUG
+    	printf("LB: x-wert: %d, y-wert: %d, trigX: %d, trigY: %d\n", synshm->x, synshm->y, std.triggerx, std.triggery);fflush(stdout);
+	#endif
+        return 1;
+    } else return 0;
+}
+
 
 static void
 monitor(SynapticsSHM *synshm, int delay)
@@ -92,7 +119,7 @@ monitor(SynapticsSHM *synshm, int delay)
 	    fflush(stdout);
 	    old = cur;
 	    fflush(stdout);
-	    if ((synshm->x >= std.triggerx) && (synshm->y <= std.triggery) && (synshm->z >= synshm->finger_high)) {
+	    if ((switch_mode(synshm)==1) && (synshm->z >= synshm->finger_high)) {
 	        if (mmmode == 0) {
 	            mmmode = 1;
 	            start = 1;
@@ -120,9 +147,10 @@ monitor(SynapticsSHM *synshm, int delay)
 		usleep(delay*1000);
             }
         }
-        if ((mmmode == 1) && (start == 0) && (synshm->z >= std.zmin)) {
+        if ((mmmode == 1) && (start == 0)) {
             action = syn_get_matrixcode(&cur, &std);
-            run_action(action);
+	    if ((action>=100) || (synshm->z >= std.zmin))
+            	run_action(action);
         } else
         	start = 0;
 	}

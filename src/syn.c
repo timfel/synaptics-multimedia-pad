@@ -52,9 +52,9 @@ syn_init()
 int
 syn_get_matrixcode(SynapticsSHM *cur, Config* std)
 {
-	int actioncode = 0;
+    int actioncode = 0;
     int buttonx, buttony;
-    buttonx = std->xmax - (std->xmax / 8);  /* Take the sidescroll off the grid */
+    buttonx = std->xmax - (std->xmax / 10);  /* Take the sidescroll off the grid */
     buttony = cur->y;
     
     if ((cur->left == 1) || (cur->right == 1)) 
@@ -64,21 +64,23 @@ syn_get_matrixcode(SynapticsSHM *cur, Config* std)
     }
     
     if (cur->z > std->zmin) {
-        if ((cur->x > 0) && (cur->x < buttonx/3))
+        if ((cur->x > 0) && (cur->x <= buttonx/3)) {
             actioncode = 10;
-        if ((cur->x > buttonx/3) && (cur->x < 2*buttonx/3))
+	} else if ((cur->x > buttonx/3) && (cur->x <= 2*buttonx/3)) {
             actioncode = 20;
-        if ((cur->x > 2*buttonx/3) && (cur->x < buttonx))
+	} else if ((cur->x > 2*buttonx/3) && (cur->x <= buttonx)) {
             actioncode = 30;
-        if ((cur->y > 0) && (cur->y < std->ymax/3))
+	}
+        if ((cur->y > 0) && (cur->y <= std->ymax/3)) {
             actioncode += 1;
-        if ((cur->y > std->ymax/3) && (cur->y < 2*std->ymax/3))
+	} else if ((cur->y > std->ymax/3) && (cur->y <= 2*std->ymax/3)) {
             actioncode += 2;
-        if ((cur->y > 2*std->ymax/3) && (cur->y < std->ymax))
+	} else if ((cur->y > 2*std->ymax/3) && (cur->y <= std->ymax)) {
             actioncode += 3;
+	}
     }
     
-    if ((actioncode < 4) && (cur->y > std->triggery))
+    if ((actioncode < 4) && (actioncode > 0))
     {
  	buttony = std->ymax - cur->y + std->triggery/2;  /* Map the value to scale properly */
     	actioncode = buttony * 100 / std->ymax + 100; /* W/G = p/100 ;) */

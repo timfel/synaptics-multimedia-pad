@@ -38,6 +38,7 @@ typedef struct {
 	int actsound;
 	char soundon[239];
 	char soundoff[239];
+	char corner[3];
 	char a1[127];
 	char a2[127];
 	char a3[127];
