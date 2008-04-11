@@ -72,6 +72,7 @@ run_action(int actioncode)
         	sprintf(cmd,"amixer sset \"%s\" \"%d%\"",std.alsamixer,actioncode-100);
         	pthread_create(&run, NULL, system, cmd);
 			return pthread_detach(run);
+		usleep(5000);
         }
     }
     return 0;
